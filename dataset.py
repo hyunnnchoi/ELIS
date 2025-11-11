@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 DATASET_NAME = "lmsys/lmsys-chat-1m"
 SAMPLE_SIZE = 11000
 RANDOM_SEED = 42  # Fixed seed for reproducibility
+FILTER_ENGLISH_ONLY = True  # Filter only English prompts for BGE model
 OUTPUT_FILE = "processed_dataset.json"
 DATA_DIR = "./data"
 
@@ -58,13 +59,19 @@ def process_dataset() -> List[str]:
     logger.info(f"Loading dataset: {DATASET_NAME}")
     ds = load_dataset(DATASET_NAME)
     
-    # Get train split and sample with fixed seed
+    # Get train split
     train_data = ds['train']
     total_size = len(train_data)
     logger.info(f"Total dataset size: {total_size}")
     
+    # [NOTE, hyunnnchoi, 2025.11.11] Filter English only if enabled
+    if FILTER_ENGLISH_ONLY:
+        logger.info("Filtering English-only examples...")
+        train_data = train_data.filter(lambda x: x['language'] == 'English')
+        logger.info(f"After language filtering: {len(train_data)} English examples")
+    
     # Sample with fixed seed for reproducibility
-    sampled_ds = train_data.shuffle(seed=RANDOM_SEED).select(range(min(SAMPLE_SIZE, total_size)))
+    sampled_ds = train_data.shuffle(seed=RANDOM_SEED).select(range(min(SAMPLE_SIZE, len(train_data))))
     logger.info(f"Sampled {len(sampled_ds)} examples")
     
     # Step 2: Extract user inputs only
@@ -84,21 +91,23 @@ def process_dataset() -> List[str]:
 
 def extract_user_inputs(dataset) -> List[str]:
     """
-    Extract only user inputs from conversation data.
-    Handles multi-turn conversations by extracting only user messages.
+    Extract only the first user input from each conversation.
+    This ensures we get independent prompts without context dependency.
     """
     user_prompts = []
     
+    # [NOTE, hyunnnchoi, 2025.11.11] Extract only the first user input per conversation
     for example in dataset:
         # The conversation field contains the dialogue
         conversation = example.get('conversation', [])
         
-        # Extract all user messages (role == 'user')
+        # Find and extract only the first user message
         for turn in conversation:
             if isinstance(turn, dict) and turn.get('role') == 'user':
                 content = turn.get('content', '').strip()
                 if content:  # Only add non-empty prompts
                     user_prompts.append(content)
+                    break  # Only take the first user input
     
     return user_prompts
 
