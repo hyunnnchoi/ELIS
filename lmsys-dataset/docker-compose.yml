@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  vllm:
+    image: vllm/vllm-openai:latest
+    # 또는 사용자의 vLLM 이미지
+    volumes:
+      # 처리된 데이터셋 마운트
+      - ./data:/app/data
+      # 데이터셋 스크립트 마운트
+      - ./dataset.py:/app/dataset.py
+      # requirements 마운트 (필요시)
+      - ./requirements.txt:/app/requirements.txt
+    ports:
+      - "8000:8000"
+    environment:
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
+    # GPU 사용 (필요시)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
