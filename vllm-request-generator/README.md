@@ -75,6 +75,29 @@ python send_to_vllm.py \
   --temperature 0.9
 ```
 
+### 예시 4: 백그라운드 실행 (프로덕션 환경)
+
+```bash
+cd /vllm/kukt && nohup python3 send_to_vllm.py \
+  --input /data/processed_dataset.json \
+  --output /data/vllm_results.json \
+  --model gpt-oss-20b \
+  --batch-size 16 \
+  --max-tokens 1024 \
+  > /data/vllm_run.log 2>&1 &
+
+echo "✅ 백그라운드에서 실행 시작 (max_tokens=1024, 실시간 저장)"
+echo "   PID: $!"
+echo "   로그: tail -f /data/vllm_run.log"
+echo "   학습 데이터: watch -n 5 'wc -l /data/vllm_results_training.jsonl'"
+```
+
+이 예시는 다음과 같은 기능을 제공합니다:
+- `nohup`을 사용하여 백그라운드에서 안전하게 실행
+- 로그를 `/data/vllm_run.log`에 실시간으로 저장
+- 배치 크기 16으로 효율적인 처리
+- 실행 후 프로세스 ID와 모니터링 명령어 표시
+
 ## 출력 형식
 
 결과는 다음과 같은 JSON 형식으로 저장됩니다:
