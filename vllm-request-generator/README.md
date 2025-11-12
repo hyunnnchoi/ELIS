@@ -10,6 +10,13 @@
 pip install -r requirements.txt
 ```
 
+## 데이터 경로
+
+- **입력 데이터셋**: vLLM 컨테이너 루트 디렉토리의 `/data` 폴더에서 읽어옵니다.
+- **출력 데이터셋**: vLLM 컨테이너 루트 디렉토리의 `/data/{파일명}.jsonl` 형식으로 저장됩니다.
+
+> **Note**: 이 스크립트는 vLLM 서버로부터 응답을 받아 임베딩 모델 학습용 데이터셋을 생성합니다.
+
 ## 사용 방법
 
 ### 1. 기본 사용법
@@ -26,7 +33,7 @@ python send_to_vllm.py \
   --output /data/vllm_results.json \
   --server-url http://localhost:8000/v1/completions \
   --model your-model-name \
-  --max-tokens 512 \
+  --max-tokens 1024 \
   --temperature 0.7 \
   --delay 0.1
 ```
