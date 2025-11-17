@@ -256,7 +256,7 @@ watch -n 5 'wc -l data/model-name/vllm_results_training.jsonl'
 
 ## Citation
 
-This project is an implementation of the ELIS (Efficient LLM Iterative Scheduling) system described in the following paper:
+This project is a reimplementation of the ELIS (Efficient LLM Iterative Scheduling) system described in the following paper:
 
 ```bibtex
 @misc{choi2025elisefficientllmiterative,
@@ -270,5 +270,5 @@ This project is an implementation of the ELIS (Efficient LLM Iterative Schedulin
 }
 ```
 
-If you use this code or find it helpful, please consider citing our paper.
+If you use this code or find it helpful, please consider citing their paper.
 
