@@ -1,4 +1,4 @@
-# ELIS: Embedding Learning Input-output Sequences
+# ELIS: Efficient LLM Iterative Scheduling System with Response Length Predictor 
 
 A complete pipeline for generating training data for embedding models from LLM inference outputs. This project processes the lmsys-chat-1m dataset, generates completions using vLLM, and creates training data by slicing outputs into progressive token chunks.
 
