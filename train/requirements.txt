@@ -1,0 +1,13 @@
+# ELIS Output Token Predictor - Training Dependencies
+
+# Core ML libraries
+torch>=2.0.0
+transformers>=4.30.0
+
+# Data processing
+numpy>=1.24.0
+tqdm>=4.65.0
+
+# For reproducibility
+datasets>=2.12.0
+
