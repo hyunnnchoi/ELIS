@@ -254,3 +254,21 @@ watch -n 5 'wc -l data/model-name/vllm_results_training.jsonl'
 - **Memory Efficiency**: Streaming JSONL output prevents memory overflow
 - **Reproducibility**: Fixed random seed ensures consistent dataset sampling
 
+## Citation
+
+This project is an implementation of the ELIS (Efficient LLM Iterative Scheduling) system described in the following paper:
+
+```bibtex
+@misc{choi2025elisefficientllmiterative,
+      title={ELIS: Efficient LLM Iterative Scheduling System with Response Length Predictor}, 
+      author={Seungbeom Choi and Jeonghoe Goo and Eunjoo Jeon and Mingyu Yang and Minsung Jang},
+      year={2025},
+      eprint={2505.09142},
+      archivePrefix={arXiv},
+      primaryClass={cs.DC},
+      url={https://arxiv.org/abs/2505.09142}, 
+}
+```
+
+If you use this code or find it helpful, please consider citing our paper.
+
