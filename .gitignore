@@ -1,5 +1,9 @@
-# Data files
+# Data files - exclude all data folder contents (copyright protection)
 data/
+# Explicitly exclude JSON/JSONL files in data folder
+data/**/*.json
+data/**/*.jsonl
+# Also exclude root-level JSON/JSONL (but allow config files)
 *.json
 *.jsonl
 
