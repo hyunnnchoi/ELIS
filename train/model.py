@@ -192,4 +192,3 @@ if __name__ == "__main__":
     print(f"  Sample predictions: {predictions[:3]}")
     
     print("\nModel test passed!")
-
