@@ -1,0 +1,7 @@
+# ELIS Scheduler Requirements
+torch>=2.0.0
+transformers>=4.30.0
+numpy>=1.24.0
+requests>=2.28.0
+tqdm>=4.65.0
+
